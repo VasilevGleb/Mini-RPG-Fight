@@ -239,13 +239,37 @@ class Program
                 else
                     Console.WriteLine("You have been defeated! Game Over.");
                 Console.WriteLine("Thank you for playing!");
-                break;
+                return;
 
             }
 
             // Reset temporary defense boosts
             player.Defense = Math.Max(0, player.Defense - 5);
             enemy.Defense = Math.Max(0, enemy.Defense - 5);
+        }
+
+        static int CalcWeaponDamage(WeaponType weapon, out bool crit)
+        {
+            crit = false;
+            int damage = 0;
+            switch (weapon)
+            {
+                case WeaponType.Sword:
+                    crit = (rand.Next(1, 101) <= 20); // 20% chance for critical hit
+                    if (crit) damage = (int)(damage * 2);
+                    break;
+                case WeaponType.Axe:
+                    crit = (rand.Next(1, 101) <= 10);
+                    if (crit) damage = (int)(damage * 3);
+                    break;
+                case WeaponType.Spear:
+                    crit = (rand.Next(1, 101) <= 15);
+                    if (crit) damage = (int)(damage * 1.5);
+                    break;
+            }
+            if (crit)
+                Console.WriteLine($"{damage} crit");
+            return 0; // значение по умолчанию, если ни один case не сработал
         }
     }
 }
