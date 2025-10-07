@@ -58,6 +58,94 @@ class Program
                 return 10.00;
         }
     }
+    // Class for Attack types
+    class Attack
+    {
+        public string Name;
+        public double DamageMultiplier;
+        public int ManaCost;
+        public string Description;
+
+        public Attack(string name, double damageMultiplier, int manaCost, string description)
+        {
+            Name = name;
+            DamageMultiplier = damageMultiplier;
+            ManaCost = manaCost;
+            Description = description;
+        }
+    }
+
+    static List<Attack> GetWeaponAttacks(WeaponType weapon)
+    {
+        switch (weapon)
+        {
+            // Warriosrs Weapon
+            case WeaponType.AssassinsBlade:
+                return new List<Attack>
+                {
+                    new Attack("Quick Stub", 0.8, 0, "Fast but weak attack"),
+                    new Attack("Deep Cut", 1.5, 0, "Slower but deadly attack")
+                };
+            case WeaponType.Axe:
+                return new List<Attack>
+                {
+                    new Attack("Light Attack", 1.0, 0, "Regular swing"),
+                    new Attack("Heavy Attack", 2, 0, "Powerful crashing blow")
+                };
+            case WeaponType.SwordOfJustice:
+                return new List<Attack>
+                {
+                    new Attack("Slash", 1.0, 0, "Standart sword slash"),
+                    new Attack("Divine Strike", 1.8, 0,"Blased powerful strike")
+                };
+
+            // Archer Weapon
+            case WeaponType.Sling:
+                return new List<Attack>
+                {
+                    new Attack("Stone Shot", 1.0, 0, "Basic stone shot"),
+                    new Attack("Double Shot", 1.6, 0, "Throw two stones quickly")
+                };
+            case WeaponType.Bow:
+                return new List<Attack>
+                {
+                    new Attack("Qick Shot", 0.9, 0, "Fast arrow"),
+                    new Attack("Aimed Shot", 1.8, 0, "Carrefully aimed arrow")
+                };
+            case WeaponType.Crossbow:
+                return new List<Attack>
+                {
+                    new Attack("Bolt Shot", 1.2, 0, "Heavy Bolt"),
+                    new Attack("Piercing Bolt", 2.0, 0, "Armor-piercing Bolt")
+                };
+
+            // Mage Weapon
+            case WeaponType.Wand:
+                return new List<Attack>
+                {
+                    new Attack("Fire Spell", 1.3, 15, "Burning falme"),
+                    new Attack("Lightning Spell", 1.7, 20, "Electric shock")
+                };
+            case WeaponType.MagicStaff:
+                return new List<Attack>
+                {
+                    new Attack("Fireball", 1.5, 20, "Explosive fire blast"),
+                    new Attack("Chain Lighting", 1.8, 25, "Lighting that hits multiple times")
+                };
+            case WeaponType.BookOfDeath:
+                return new List<Attack>
+                {
+                    new Attack("Fire of Darkness", 2.0, 30, "Cursred flame from the Abyss"),
+                    new Attack("Thunder Storm", 2,3, 35, "Devastating Lighting Storm")
+                };
+            default:
+                return new List<Attack>
+                {
+                    new Attack("Basic Attack", 1.0, 0, "Simple attack"),
+                    new Attack("Strong Attack", 1.2, 0, "Stronger attack")
+                };
+        }
+    }
 
     class Character
     {
