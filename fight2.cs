@@ -17,7 +17,7 @@ class Program
     enum CharacterType { Warrior, Archer, Mage, SWAT };
     enum WeaponType { Assassins_Blade, Axe, Sword_Of_Justice, Sling, Bow, Crossbow, Wand, Magic_Staff, Book_Of_Death, AK_47, M4_A1, HK_MP5 };
     enum ArmorType { Shield, Helmet, Hunter_Armor, Chain_Armor, Mantel_Of_Fracture, Moonwhisper_Robe, SWAT_Armor };
-    enum EnemyName { };
+    enum EnemyName { Lord, Bandit, Solder, Scelet };
 
     static double GetWeaponDamage(WeaponType weapon)
     {
@@ -235,6 +235,59 @@ class Program
                 return 5;
         }
     }
+
+    //Create Random Enemy
+    static Character CreateRandomEnemy()
+    {
+        Character enemy = new Character();
+
+        //1. Randomm class (not a SWAT)
+        CharacterType[] normalClasses = { CharacterType.Warrior, CharacterType.Archer, CharacterType.Mage };
+        CharacterType enemyClass = normalClasses[rand.Next(normalClasses.Length)];
+        enemy.Hero = enemyClass.ToString();
+        EnemyName[] nameClass = { EnemyName.Lord, EnemyName.Bandit, EnemyName.Solder, EnemyName.Scelet };
+        EnemyName enemyName = nameClass[rand.Next(nameClass.Length)];
+        enemy.isMage = (enemyClass = CharacterType.Mage);
+
+        //2. Base characteristics 
+        switch (enemyClass)
+        {
+            case CharacterType.Warrior:
+                enemy.HP = enemy.maxHP = 150;
+                enemy.damage = 25;
+                enemy.defense = 15;
+                break;
+            case CharacterType.Archer:
+                enemy.HP = enemy.maxHP = 100;
+                enemy.damage = 30;
+                enemy.defense = 8;
+                break;
+            case CharacterType.Mage:
+                enemy.HP = enemy.maxHP = 150;
+                enemy.damage = 20;
+                enemy.defense = 5;
+                enemy.mana = 100;
+                break;
+        }
+
+        //3. Random weapon for a class
+        List<WeaponType> availableWeapons = GetAvailableWeapons(enemyClass);
+        enemy.weapon = availableWeapons[rand.Next(availableWeapons.Count)];
+
+        // + Damage from weapon
+        double weaponDamage = GetWeaponDamage(enemy.weapon.Value);
+        enemy.damage += weaponDamage;
+
+        //4. Random armor for class
+        List<ArmorType> availableArmor = GetAvailableArmor(enemyClass);
+        enemy.armor = availableArmor[rand.Next(availableArmor.Count)];
+        //+ Defense frome armor
+        double armorDefense = GetArmorDefense(enemy.armor.Value);
+        enemy.defense += armorDefense;
+
+        return enemy;
+    }
+
     class Character
     {
         public string Hero;
@@ -335,8 +388,6 @@ class Program
     }
 
     // Return of Available Armor Functon
-
-
     static List<ArmorType> GetAvailableArmor(CharacterType character)
     {
         switch (character)
@@ -482,5 +533,17 @@ class Program
         player.armor = ChooseArmor(chosenCharacter);
         double armorDefense = GetArmorDefense(player.armor.Value);
         player.defense += armorDefense;
+
+        //Show final character
+        Console.WriteLine("\n✓Character created sucsessfully!");
+        player.ShowInfo();
+
+        //Initialize Enemy
+        Console.WriteLine(">>>Your Opponent<<<");
+        Character enemy = CreateRandomEnemy();
+        enemy.ShowInfo();
+
+        Console.WriteLine(">>>Press any key to start the battle!");
+        Console.ReadLine();
     }
 }
