@@ -15,8 +15,8 @@ class Program
     static Random rand = new Random();
 
     enum CharacterType { Warrior, Archer, Mage, SWAT };
-    enum WeaponType { AssassinsBlade, Axe, SwordOfJustice, Sling, Bow, Crossbow, Wand, MagicStaff, BookOfDeath, AK47, M4A1, HKMP5 };
-    enum ArmorType { Shield, Helmet, HunterArmor, ChainArmor, MantelOfFracture, MoonwhisperRobe, SWATArmor };
+    enum WeaponType { Assassins_Blade, Axe, Sword_Of_Justice, Sling, Bow, Crossbow, Wand, Magic_Staff, Book_Of_Death, AK_47, M4_A1, HK_MP5 };
+    enum ArmorType { Shield, Helmet, Hunter_Armor, Chain_Armor, Mantel_Of_Fracture, Moonwhisper_Robe, SWAT_Armor };
     enum EnemyName { };
 
     static double GetWeaponDamage(WeaponType weapon)
@@ -24,11 +24,11 @@ class Program
         switch (weapon)
         {
             // Warrior weapons
-            case WeaponType.AssassinsBlade:
+            case WeaponType.Assassins_Blade:
                 return 25.00;
             case WeaponType.Axe:
                 return 23.60;
-            case WeaponType.SwordOfJustice:
+            case WeaponType.Sword_Of_Justice:
                 return 24.30;
 
             // Arcer weapons
@@ -42,17 +42,17 @@ class Program
             // Mage weapons
             case WeaponType.Wand:
                 return 25.40;
-            case WeaponType.MagicStaff:
+            case WeaponType.Magic_Staff:
                 return 27.50;
-            case WeaponType.BookOfDeath:
+            case WeaponType.Book_Of_Death:
                 return 35.00;
 
             // SWAT weapons
-            case WeaponType.AK47:
+            case WeaponType.AK_47:
                 return 87.00;
-            case WeaponType.M4A1:
+            case WeaponType.M4_A1:
                 return 87.00;
-            case WeaponType.HKMP5:
+            case WeaponType.HK_MP5:
                 return 87.00;
             default:
                 return 10.00;
@@ -79,74 +79,162 @@ class Program
     {
         switch (weapon)
         {
-            // Warriosrs Weapon
-            case WeaponType.AssassinsBlade:
+            // Warriors Weapons
+            case WeaponType.Assassins_Blade:
                 return new List<Attack>
-                {
-                    new Attack("Quick Stub", 0.8, 0, "Fast but weak attack"),
-                    new Attack("Deep Cut", 1.5, 0, "Slower but deadly attack")
-                };
+            {
+                new Attack("Quick Stab", 0.8, 0, "Fast but weak attack"),
+                new Attack("Deep Cut", 1.5, 0, "Slower but deadly attack")
+            };
             case WeaponType.Axe:
                 return new List<Attack>
-                {
-                    new Attack("Light Attack", 1.0, 0, "Regular swing"),
-                    new Attack("Heavy Attack", 2, 0, "Powerful crashing blow")
-                };
-            case WeaponType.SwordOfJustice:
+            {
+                new Attack("Light Attack", 1.0, 0, "Regular swing"),
+                new Attack("Heavy Attack", 2.0, 0, "Powerful crushing blow")
+            };
+            case WeaponType.Sword_Of_Justice:
                 return new List<Attack>
-                {
-                    new Attack("Slash", 1.0, 0, "Standart sword slash"),
-                    new Attack("Divine Strike", 1.8, 0,"Blased powerful strike")
-                };
+            {
+                new Attack("Slash", 1.0, 0, "Standard sword slash"),
+                new Attack("Divine Strike", 1.8, 0, "Blessed powerful strike")
+            };
 
-            // Archer Weapon
+            // Archer Weapons
             case WeaponType.Sling:
                 return new List<Attack>
-                {
-                    new Attack("Stone Shot", 1.0, 0, "Basic stone shot"),
-                    new Attack("Double Shot", 1.6, 0, "Throw two stones quickly")
-                };
+            {
+                new Attack("Stone Shot", 1.0, 0, "Basic stone shot"),
+                new Attack("Double Shot", 1.6, 0, "Throw two stones quickly")
+            };
             case WeaponType.Bow:
                 return new List<Attack>
-                {
-                    new Attack("Qick Shot", 0.9, 0, "Fast arrow"),
-                    new Attack("Aimed Shot", 1.8, 0, "Carrefully aimed arrow")
-                };
+            {
+                new Attack("Quick Shot", 0.9, 0, "Fast arrow"),
+                new Attack("Aimed Shot", 1.8, 0, "Carefully aimed arrow")
+            };
             case WeaponType.Crossbow:
                 return new List<Attack>
-                {
-                    new Attack("Bolt Shot", 1.2, 0, "Heavy Bolt"),
-                    new Attack("Piercing Bolt", 2.0, 0, "Armor-piercing Bolt")
-                };
+            {
+                new Attack("Bolt Shot", 1.2, 0, "Heavy bolt"),
+                new Attack("Piercing Bolt", 2.0, 0, "Armor-piercing bolt")
+            };
 
-            // Mage Weapon
+            // Mage Weapons
             case WeaponType.Wand:
                 return new List<Attack>
-                {
-                    new Attack("Fire Spell", 1.3, 15, "Burning falme"),
-                    new Attack("Lightning Spell", 1.7, 20, "Electric shock")
-                };
-            case WeaponType.MagicStaff:
+            {
+                new Attack("Standart Spell", 1.0, 1, "Standart attack spell"),
+                new Attack("Fire Spell", 1.3, 15, "Burning flame"),
+                new Attack("Lightning Spell", 1.7, 20, "Electric shock")
+            };
+            case WeaponType.Magic_Staff:
                 return new List<Attack>
-                {
-                    new Attack("Fireball", 1.5, 20, "Explosive fire blast"),
-                    new Attack("Chain Lighting", 1.8, 25, "Lighting that hits multiple times")
-                };
-            case WeaponType.BookOfDeath:
+            {
+                new Attack("Standart Spell", 1.0, 1, "Standart attack spell"),
+                new Attack("Fireball", 1.5, 20, "Explosive fire blast"),
+                new Attack("Chain Lightning", 1.8, 25, "Lightning that hits multiple times")
+            };
+            case WeaponType.Book_Of_Death:
                 return new List<Attack>
-                {
-                    new Attack("Fire of Darkness", 2.0, 30, "Cursred flame from the Abyss"),
-                    new Attack("Thunder Storm", 2,3, 35, "Devastating Lighting Storm")
-                };
+            {
+                new Attack("Spel of Cursed", 1.0, 2, "Standart cursed spell"),
+                new Attack("Fire of Darkness", 2.0, 30, "Cursed flame from the Abyss"),
+                new Attack("Thunder Storm", 2.3, 35, "Devastating Lightning Storm")  // ← ИСПРАВЛЕНО!
+            };
             default:
                 return new List<Attack>
-                {
-                    new Attack("Basic Attack", 1.0, 0, "Simple attack"),
-                    new Attack("Strong Attack", 1.2, 0, "Stronger attack")
-                };
+            {
+                new Attack("Basic Attack", 1.0, 0, "Simple attack"),
+                new Attack("Strong Attack", 1.2, 0, "Stronger attack")
+            };
         }
     }
 
+    // Function to show available attacks and let player choose
+    static Attack ChooseAttack(WeaponType weapon, Character attacker)
+    {
+        List<Attack> availableAttacks = GetWeaponAttacks(weapon);
+        Console.WriteLine("\nChoose your attack:");
+        for (int i = 0; i < availableAttacks.Count; i++)
+        {
+            Attack atk = availableAttacks[i];
+            string manaInfo = atk.ManaCost > 0 ? $"(Mana: {atk.ManaCost})" : "";
+            Console.WriteLine($"({i + 1}) {atk.Name} {manaInfo} - {atk.Description}");
+        }
+        while (true)
+        {
+            string input = Console.ReadLine();
+            CheckExit(input);
+
+            if (int.TryParse(input, out int choice) && choice >= 1 && choice <= availableAttacks.Count)
+            {
+                Attack selectedAttack = availableAttacks[choice - 1];
+
+                //Check if Mage has enough mana
+                if (selectedAttack.ManaCost > 0 && attacker.isMage)
+                {
+                    if (attacker.mana >= selectedAttack.ManaCost)
+                    {
+                        return selectedAttack;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You did`t have enough mana");
+                        Console.WriteLine("\nPlease choose another attack");
+                        continue;
+                    }
+                }
+                return selectedAttack;
+            }
+            else
+            {
+                Console.WriteLine($"Please write number between 1 and {availableAttacks.Count}");
+            }
+        }
+    }
+
+    // Function to perform attack
+    static void PerformAttack(Character attacker, Attack attack)
+    {
+        // Calculate Damage
+        double totalDamage = attacker.damage * attack.DamageMultiplier;
+
+        //Use Mana if needed
+        if (attack.ManaCost > 0 && attacker.isMage)
+        {
+            attacker.mana -= attack.ManaCost;
+        }
+        Console.WriteLine($">>>> {attacker.Name} used {attack.Name}!");
+        Console.WriteLine($">>>> Damage: {totalDamage:F1}!");
+        if (attack.ManaCost > 0)
+        {
+            Console.WriteLine($"Mana remaining:{attacker.mana}");
+        }
+    }
+
+    // Function to get Armor DefenseBonus
+    static double GetArmorDefense(ArmorType armor)
+    {
+        switch (armor)
+        {
+            case ArmorType.Shield:
+                return 15;
+            case ArmorType.Helmet:
+                return 8;
+            case ArmorType.Hunter_Armor:
+                return 13;
+            case ArmorType.Chain_Armor:
+                return 16;
+            case ArmorType.Mantel_Of_Fracture:
+                return 12;
+            case ArmorType.Moonwhisper_Robe:
+                return 15;
+            case ArmorType.SWAT_Armor:
+                return 55;
+            default:
+                return 5;
+        }
+    }
     class Character
     {
         public string Hero;
@@ -187,9 +275,9 @@ class Program
             case CharacterType.Warrior:
                 return new List<WeaponType>
                 {
-                    WeaponType.AssassinsBlade,
+                    WeaponType.Assassins_Blade,
                     WeaponType.Axe,
-                    WeaponType.SwordOfJustice
+                    WeaponType.Sword_Of_Justice
                 };
 
             case CharacterType.Archer:
@@ -204,16 +292,16 @@ class Program
                 return new List<WeaponType>
                 {
                     WeaponType.Wand,
-                    WeaponType.MagicStaff,
-                    WeaponType.BookOfDeath
+                    WeaponType.Magic_Staff,
+                    WeaponType.Book_Of_Death
                 };
 
             case CharacterType.SWAT:
                 return new List<WeaponType>
                 {
-                    WeaponType.AK47,
-                    WeaponType.M4A1,
-                    WeaponType.HKMP5
+                    WeaponType.AK_47,
+                    WeaponType.M4_A1,
+                    WeaponType.HK_MP5
                 };
 
             default:
@@ -248,6 +336,7 @@ class Program
 
     // Return of Available Armor Functon
 
+
     static List<ArmorType> GetAvailableArmor(CharacterType character)
     {
         switch (character)
@@ -257,27 +346,27 @@ class Program
             {
                 ArmorType.Shield,
                 ArmorType.Helmet,
-                ArmorType.ChainArmor
+                ArmorType.Chain_Armor
             };
             case CharacterType.Archer:
                 return new List<ArmorType>
                 {
-                    ArmorType.HunterArmor,
+                    ArmorType.Hunter_Armor,
                     ArmorType.Helmet,
-                    ArmorType.ChainArmor,
+                    ArmorType.Chain_Armor,
                 };
 
             case CharacterType.Mage:
                 return new List<ArmorType>
                 {
-                    ArmorType.MantelOfFracture,
-                    ArmorType.MoonwhisperRobe
+                    ArmorType.Mantel_Of_Fracture,
+                    ArmorType.Moonwhisper_Robe
                 };
 
             case CharacterType.SWAT:
                 return new List<ArmorType>
                 {
-                    ArmorType.SWATArmor
+                    ArmorType.SWAT_Armor
                 };
 
             default:
@@ -326,27 +415,30 @@ class Program
             if (characterInput == "911")
             {
                 chosenCharacter = CharacterType.SWAT;
-                Console.WriteLine("You get a cheat solder!");
+                Console.WriteLine("\nYou get a cheat solder!");
                 break;
             }
             else if (characterInput == "1")
             {
                 chosenCharacter = CharacterType.Warrior;
+                Console.WriteLine("\nNow you`re a Warrior");
                 break;
             }
             else if (characterInput == "2")
             {
                 chosenCharacter = CharacterType.Archer;
+                Console.WriteLine("\nNow you`re a Archer");
                 break;
             }
             else if (characterInput == "3")
             {
                 chosenCharacter = CharacterType.Mage;
+                Console.WriteLine("\nNow you`re a Mage");
                 break;
             }
             else
             {
-                Console.WriteLine("Please enter 1, 2 or 3");
+                Console.WriteLine("\nPlease enter 1, 2 or 3");
             }
         }
 
@@ -355,6 +447,40 @@ class Program
         player.Name = (nameInput);
         player.isMage = (chosenCharacter == CharacterType.Mage);
 
+        switch (chosenCharacter)
+        {
+            case CharacterType.Warrior:
+                player.HP = player.maxHP = 150;
+                player.damage = 25;
+                player.defense = 15;
+                break;
+            case CharacterType.Archer:
+                player.HP = player.maxHP = 100;
+                player.damage = 30;
+                player.defense = 8;
+                break;
+            case CharacterType.Mage:
+                player.HP = 90;
+                player.maxHP = 150;
+                player.damage = 9;
+                player.mana = 100;
+                player.defense = 5;
+                break;
+            case CharacterType.SWAT:
+                player.HP = player.maxHP = 250;
+                player.damage = 10;
+                player.defense = 10;
+                break;
+        }
 
+        //Choose Weapon
+        player.weapon = ChooseWeapon(chosenCharacter);
+        double weaponDamage = GetWeaponDamage(player.weapon.Value);
+        player.damage += weaponDamage; //Add weapon damage to base damage
+
+        //Choose Armor
+        player.armor = ChooseArmor(chosenCharacter);
+        double armorDefense = GetArmorDefense(player.armor.Value);
+        player.defense += armorDefense;
     }
 }
