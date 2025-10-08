@@ -17,7 +17,7 @@ class Program
     enum CharacterType { Warrior, Archer, Mage, SWAT };
     enum WeaponType { Assassins_Blade, Axe, Sword_Of_Justice, Sling, Bow, Crossbow, Wand, Magic_Staff, Book_Of_Death, AK_47, M4_A1, HK_MP5 };
     enum ArmorType { Shield, Helmet, Hunter_Armor, Chain_Armor, Mantel_Of_Fracture, Moonwhisper_Robe, SWAT_Armor };
-    enum EnemyName { Lord, Bandit, Solder, Scelet };
+    enum EnemyName { Lord, Bandit, Soldier, Scelet };
 
     static double GetWeaponDamage(WeaponType weapon)
     {
@@ -141,6 +141,28 @@ class Program
                 new Attack("Fire of Darkness", 2.0, 30, "Cursed flame from the Abyss"),
                 new Attack("Thunder Storm", 2.3, 35, "Devastating Lightning Storm")  // ← ИСПРАВЛЕНО!
             };
+
+            case WeaponType.AK_47:
+                return new List<Attack>
+                {
+                    new Attack("Standart Shot", 1.0, 0, "Schot with 3 bullets"),
+                    new Attack("Double Shot", 2.0, 0, "Shot with 6 bullets")
+                };
+
+            case WeaponType.M4_A1:
+                return new List<Attack>
+                {
+                    new Attack("Standart Shot", 1.0, 0, "Schot with 3 bullets"),
+                    new Attack("Double Shot", 2.0, 0, "Shot with 6 bullets")
+                };
+
+            case WeaponType.HK_MP5:
+                return new List<Attack>
+                {
+                    new Attack("Standart Shot", 1.0, 0, "Schot with 3 bullets"),
+                    new Attack("Double Shot", 2.0, 0, "Shot with 6 bullets")
+                };
+
             default:
                 return new List<Attack>
             {
@@ -193,6 +215,7 @@ class Program
         }
     }
 
+
     // Function to perform attack
     static void PerformAttack(Character attacker, Attack attack)
     {
@@ -211,6 +234,9 @@ class Program
             Console.WriteLine($"Mana remaining:{attacker.mana}");
         }
     }
+
+    // Heal Function
+
 
     // Function to get Armor DefenseBonus
     static double GetArmorDefense(ArmorType armor)
@@ -241,13 +267,14 @@ class Program
     {
         Character enemy = new Character();
 
-        //1. Randomm class (not a SWAT)
+        //1. Randomm class (not a SWAT) and name
         CharacterType[] normalClasses = { CharacterType.Warrior, CharacterType.Archer, CharacterType.Mage };
         CharacterType enemyClass = normalClasses[rand.Next(normalClasses.Length)];
         enemy.Hero = enemyClass.ToString();
-        EnemyName[] nameClass = { EnemyName.Lord, EnemyName.Bandit, EnemyName.Solder, EnemyName.Scelet };
-        EnemyName enemyName = nameClass[rand.Next(nameClass.Length)];
-        enemy.isMage = (enemyClass = CharacterType.Mage);
+        EnemyName[] nameClasses = { EnemyName.Lord, EnemyName.Bandit, EnemyName.Soldier, EnemyName.Scelet };
+        EnemyName enemyName = nameClasses[rand.Next(nameClasses.Length)];
+        enemy.Name = enemyName.ToString();
+        enemy.isMage = (enemyClass == CharacterType.Mage);
 
         //2. Base characteristics 
         switch (enemyClass)
@@ -304,18 +331,23 @@ class Program
 
         public void ShowInfo()
         {
-            Console.WriteLine($"{Hero}");
+
             Console.WriteLine($"Name: {Name}");
-            Console.WriteLine($"Hill Points: {HP}");
+            Console.WriteLine($"{Hero}");
+            Console.WriteLine($"Hill Points: {HP}/{maxHP}");
             if (isMage)
             {
                 Console.WriteLine($"Mana:{mana}");
             }
             Console.WriteLine($"Damage: {damage}");
-            Console.WriteLine($"Defense: {defense}");
             if (weapon != null)
             {
-                Console.WriteLine($"{weapon}");
+                Console.WriteLine($"Weapon:{weapon}");
+            }
+            Console.WriteLine($"Defense: {defense}");
+            if (armor != null)
+            {
+                Console.WriteLine($"Armor: {armor}");
             }
         }
     }
@@ -451,8 +483,7 @@ class Program
 
     static void Main()
     {
-        Console.WriteLine("\n===Welcome to Mini RPG Fight===");
-        Console.WriteLine("(You can write q or exit anytime for quit)");
+        Console.WriteLine("\n<<<===Welcome to Mini RPG Fight===>>>\n(You can write q or exit for quit)");
         Console.WriteLine("\nEnter your name:");
         string nameInput = Console.ReadLine();
         CheckExit(nameInput);
@@ -502,25 +533,24 @@ class Program
         {
             case CharacterType.Warrior:
                 player.HP = player.maxHP = 150;
-                player.damage = 25;
+                player.damage = 15;
                 player.defense = 15;
                 break;
             case CharacterType.Archer:
                 player.HP = player.maxHP = 100;
-                player.damage = 30;
+                player.damage = 10;
                 player.defense = 8;
                 break;
             case CharacterType.Mage:
-                player.HP = 90;
-                player.maxHP = 150;
+                player.HP = player.maxHP = 150;
                 player.damage = 9;
                 player.mana = 100;
                 player.defense = 5;
                 break;
             case CharacterType.SWAT:
                 player.HP = player.maxHP = 250;
-                player.damage = 10;
-                player.defense = 10;
+                player.damage = 20;
+                player.defense = 20;
                 break;
         }
 
@@ -539,11 +569,46 @@ class Program
         player.ShowInfo();
 
         //Initialize Enemy
-        Console.WriteLine(">>>Your Opponent<<<");
+        Console.WriteLine("\n>>>Your Opponent<<<");
         Character enemy = CreateRandomEnemy();
         enemy.ShowInfo();
 
         Console.WriteLine(">>>Press any key to start the battle!");
         Console.ReadLine();
+
+        //Combat Logic
+        while (player.HP > 0 && enemy.HP > 0)
+        {
+            //Player turn
+            Console.WriteLine($"\n{player.Name}`s turn!");
+            Console.WriteLine("1 Attack\t 2 Heall\t 3 Defense");
+            string actionInput = Console.ReadLine();
+            CheckExit(actionInput);
+            switch (actionInput)
+            {
+                case "1":
+                    Attack playerAttack = ChooseAttack(player.weapon.Value, player);
+                    PerformAttack(player, playerAttack);
+                    break;
+                default:
+                    Console.WriteLine(">>>Please choose 1, 2 or 3 to continue!");
+                    break;
+            }
+
+            if (enemy.HP > 0)
+            {
+                Console.WriteLine($"{enemy.Name} is attacking");
+                Attack enemyAttack = ChooseAttack(enemy.weapon.Value, enemy);
+                PerformAttack(enemy, enemyAttack);
+            }
+            else if (player.HP <= 0)
+            {
+                Console.WriteLine($">>>You was defieded from {enemy.Name}!\n>>>Thanks for the playing!");
+            }
+            else if (enemy.HP <= 0)
+            {
+                Console.WriteLine(">>>You winn!");
+            }
+        }
     }
 }
